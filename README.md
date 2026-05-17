@@ -1,13 +1,3 @@
-import os
-
-readme_content = """# 🎓 EduSphere: Advanced Agentic AI Classroom
-
-An advanced, production-grade **Multi-Agent Educational AI System** designed to orchestrate specialized AI agents, manage persistent student memory, and utilize advanced retrieval mechanisms to deliver tailored educational content and immediate assessments. 
-
-This project was developed for the **Deep Generative Models Course (Fourth Year)** at the **Faculty of Artificial Intelligence, Menoufia University**.
-
----
-
 ## 📊 System Architecture & Module Boundaries
 
 The system completely transcends a single monolithic pipeline by decomposing the educational workflow into **6 specialized, highly communicative agents** with explicit, traceable inter-agent contracts and dynamic, query-driven routing.
