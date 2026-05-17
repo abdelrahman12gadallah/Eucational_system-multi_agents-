@@ -56,3 +56,57 @@ The system exposes a clean, corporate-themed, multi-tab interface built entirely
 ## 📁 Modular Project Structure
 
 The codebase strictly follows clean architectural boundaries to ease grading and future scaling:
+
+
+📦 EduSphere System Workflow (Sequential Tree)
+│
+└── 🌐 [User Input: Topic & Language] (e.g., "Explain RAG vs CAG" | Arabic)
+    │
+    └── 🛠️ Step 1: 🛡️ Input Guardrail & Language Detector (Agent 1)
+        ├── 📋 Task: Scan for Prompt Injections / Detect Target Language
+        └── 📤 Output: [Safety Clearance Status: SAFE] + Sanitized Query
+            │
+            └── 🛠️ Step 2: 🔍 Knowledge Retrieval Specialist (Agent 2)
+                ├── 📥 Injects Local Context: RAG (Reads from /knowledge_base/ Folder)
+                ├── 📥 Injects History: Persistent Disk Memory (Reads memory_STUDENT.txt)
+                ├── 📋 Task: Synthesize Data (Local PDFs + LLM Foundational Knowledge)
+                └── 📤 Output: [Comprehensive Raw Knowledge Dossier]
+                    │
+                    └── 🛠️ Step 3: 📐 Curriculum Architect (Agent 3)
+                        ├── 📋 Task: Structure pedagogical path based on the dossier
+                        └── 📤 Output: [Structured 3-Lesson Syllabus Blueprint]
+                            │
+                            └── 🛠️ Step 4: ✍️ Educational Content Writer (Agent 4)
+                                ├── 📋 Task: Expand syllabus into detailed, engaging tutorials
+                                └── 📤 Output: [Rich Markdown Lesson Explanations] ──┐
+                                    │                                                 │ (Passes both
+                                    ├───▶ 🛠️ Step 5: 📝 Assessment Specialist (Agent 5)│  Content & Quiz)
+                                    │   ├── 📋 Task: Build a 5-question MCQ quiz      │
+                                    │   └── 📤 Output: [Smart Quiz with Answers & Keys]│
+                                    │                                                 │
+                                    └───────────────────────▶  ⚖️  ◀──────────────────┘
+                                                              │
+                                            🛠️ Step 6: ⚖️ Output Filter & Multilingual Reviewer (Agent 6)
+                                                ├── 📋 Task: Scrub for hallucinations, refine translation, enforce format
+                                                └── 📤 Output: [Polished, Verified Final Educational Package]
+                                                    │
+                                                    └── 🎨 [Streamlit UI Multi-Tab Rendering]
+                                                        ├── 📖 Approved Educational Content Tab
+                                                        ├── 📝 Smart Quiz Tab
+                                                        └── 🛡️ Security & Guardrails Report Tab
+
+[task_guardrail] (Outputs: Cleared Query)
+       │
+       ▼
+[task_retrieval] (Context: [task_guardrail] + Python Local Functions for Memory & RAG)
+       │
+       ▼
+[task_curriculum] (Context: [task_retrieval])
+       │
+       ▼
+[task_content] (Context: [task_curriculum]) ──┐
+       │                                       │
+       ▼ (Passes Content)                      │ (Passes Content for evaluation)
+[task_quiz]                                    ▼
+       │                              [task_finalize] (Context: [task_content, task_quiz])
+       └───────────────────────────────▶ Outputs strictly verified data to app.py
